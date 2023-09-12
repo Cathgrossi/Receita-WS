@@ -26,52 +26,59 @@
                 <form>
                     <div class="mb-4">
                         <label for="cnpj" class="form-label">CNPJ:</label>
-                        <input type="text" class="form-control" id="cnpj" aria-describedby="cnpjHelp">
-                    </div>
+                        <input type="text" class="form-control" id="cnpj" aria-describedby="cnpjHelp" value="60746948000112">
+                    </div>                   
+                    <?php
+                    require __DIR__.'/vendor/autoload.php';
+
+                    use \App\WebService\ReceitaWS;
+
+                    $obReceitaWS = new ReceitaWS;
+
+                    $cnpj = '90400888000142';
+
+                    $resultado = $obReceitaWS->consultarCNPJ($cnpj);
+
+                    if(empty($resultado)) {
+                        die('Problemas ao consultar CNPJ');
+                    }
+
+                    if(isset($resultado['error'])) {
+                        die($resultado['error']);
+                    }
+                    ?>
+
                     <div class="mb-4">
                         <label for="razaoSocial" class="form-label">Razão Social:</label>
-                        <input type="text" class="form-control" id="razaoSocial">
+                        <input type="text" class="form-control" id="razaoSocial" value="<?php echo $resultado['nome']; ?>">
                     </div>
                     <div class="mb-4">
                         <label for="nomeFantasia" class="form-label">Nome Fantasia:</label>
-                        <input type="text" class="form-control" id="nomeFantasia">
+                        <input type="text" class="form-control" id="nomeFantasia" value="<?php echo $resultado['fantasia']; ?>">
                     </div>
                     <div class="mb-4">
                         <label for="logradouro" class="form-label">Logradouro:</label>
-                        <input type="text" class="form-control" id="logradouro">
+                        <input type="text" class="form-control" id="logradouro" value="<?php echo $resultado['logradouro']; ?>">
                     </div>
                     <div class="mb-4">
                         <label for="numero" class="form-label">Número:</label>
-                        <input type="text" class="form-control" id="numero">
+                        <input type="text" class="form-control" id="numero" value="<?php echo $resultado['numero']; ?>">
                     </div>
                     <div class="mb-4">
                         <label for="cep" class="form-label">CEP:</label>
-                        <input type="text" class="form-control" id="cep">
+                        <input type="text" class="form-control" id="cep" value="<?php echo $resultado['cep']; ?>">
                     </div>
                     <div class="mb-4">
                         <label for="telefone" class="form-label">Telefone:</label>
-                        <input type="tel" class="form-control" id="telefone">
-                    </div>
-                    <div class="mb-4">
-                        <label for="email" class="form-label">Email:</label>
-                        <input type="email" class="form-control" id="email">
-                    </div>
-                    <div class="mb-4">
-                        <label for="situacao" class="form-label">Situação:</label>
-                        <input type="text" class="form-control" id="situacao">
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <button type="submit" class="btn btn-primary">Salvar</button>
-                    </div>
+                        <input type="tel" class="form-control" id="telefone" value="<?php echo $resultado['telefone']; ?>">
+                    </div>                    
                 </form>
             </div>
         </div>
     </main>
-    
-    
 
     <footer>
-
+        
     </footer>
 </body>
 </html>
